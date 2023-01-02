@@ -2,42 +2,200 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <title>Root Locus Demo of Real Poles with Feedback</title>
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Root Locus Demo of Real Poles with Feedback"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+  <link href="../styles2.css" rel="stylesheet" />
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
   </head>
   <body>
+  <div>
+  <a href="http://www.till.com/articles/index.html">
+    <img src="../images/articles.gif" width="760" height="30" alt="till.com Articles" />
+  </a>
+</div>
+<div class="text">
+  <h1>Root Locus Demo of Real Poles with Feedback</h1>
+  <p class="right">
+    Donald Tillman, Sept 18, 2018
+  </p>
+  <hr />
+
+  <p>
+    A passive filter built with resistors and capacitors will have
+    its poles positioned along the negative real axis.  Adding
+    feedback will move the pole positions, first along the axis, and
+    then off, onto the complex plane.  This is an interactive
+    simulation of the root locus movement as feedback is applied.  I
+    call it <em>pole dancing</em>.
+  </p>
+
+
+  <p>
+    A Super Concise Introduction
+  </p>
+
+  <p>
+    The transfer function of a filter is described in the form of a
+    fraction with polynomials on both the numerator and denominator.
+  </p>
+
+  <div class="center">
+      \[ H(s) = \frac{z_ns^n + \ldots + z_2s^2 + z_1s + z_0}
+                     {p_ns^n + \ldots + p_2s^2 + p_1s + p_0} \]
+  </div>
+  <p>
+    Where:
+  </p>
+  <p class="indent">
+    \( H(s) \) 
+    is the filter transfer function<br />
+    \( s \) is the complex frequency \( \alpha + j\omega \) <br />
+    \( z \) is the set of numerator (zero) coefficients<br />
+    and \( p \) is the set of denomenator (pole) coefficients<br />
+  </p>
+
+
+  <p>
+    The numerator determines the overall type of the filter
+    (low-pass, high-pass, etc.) and the roots of the numerator
+    polynomial are called the <em>zeros</em>.  The
+    denominator determines the characteristic shape of the curve
+    (resonances, sharpness, etc.) and the roots of the denominator
+    polynomial are called the <em>poles</em>.
+  </p>
+  <p>
+    The poles and zeros can be real or complex, and their
+    arrangement on the complex plane is of great interest.  The
+    poles have to be on the left half of the plane for stability
+    (for it to be a filter and not an oscillator).  Poles on the
+    real axis are smooth, gradual filter responses.  Complex poles
+    off the real axis are resonant with sharper curves.
+  </p>
+  <p>
+    A passive filter has poles positioned on the negative real axis.
+    So there is a class of <em>active filters</em> where a gain
+    stage is added to provide feedback around a passive filter,
+    altering the pole positions, and liberating them from the real
+    axis.  This is called a
+    <a href="http://en.wikipedia.org/wiki/Root_locus">root locus</a>
+    in system theory.
+  </p>
+  <p>
+    Here is a demonstration of that effect.  Click to place poles on
+    the negative real axis of the complex plane.  Then add feedback
+    to see how the real poles move around.
+  </p>
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <div id="root" class="center"></div>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+
+
+  <p class="clearboth">
+    What's happening?  Placing the poles along the real axis creates
+    a polynomial.  Applying feedback changes the value of the 0th
+    coefficent of that polynomial.  The altered polynomial has
+    different roots, and those are displayed here.
+  </p>
+  <p>
+    The Primary Feedback slider controls the amount and polarity of
+    feedback.  The Secondary Feedback slider applies feedback as a
+    derivative and affects the 1st coefficient of the root
+    polynomial.
+  </p>
+  <p>
+    Complex poles can only exist in conjugate pairs; mirror images
+    on either side of the real axis.  So before any complex poles
+    can be created, the real poles have to move around and pair up
+    as double real poles.  Only then can they split and leave the
+    real axis.  ('Weirdly like sex or cell division in biology.)
+  </p>
+  <p>
+    Some interesting things to note:
+  </p>
+  <ul>
+    <li>
+      With a single pole, feedback will just move it along the X
+      axis.
+    </li>
+    <li>
+      Starting with two poles at the same location, applying
+      positive feedback will spread them apart on the real axis.
+      Applying negative feedback will release them from the real
+      axis for complex poles, vertically, in a line straight up and
+      down.  There are similar effects for two poles placed anywhere
+      on the real axis.
+    </li>
+    <li>
+      With three poles at the same location, applying negative
+      feedback will send two of them toward the Y axis and the third
+      will fly to the left.  Positive feedback goes in the other
+      direction.
+    </li>
+    <li>
+      For the case of three poles spread out, adding negative
+      feedback will bring the rightmost two together first, and then
+      they can leap off the real axis, straight lines angled toward
+      the Y-axis.  Positive feedback will be the left-right reverse
+      behavior.
+    </li>
+    <li>
+      The Moog Ladder Filter has 4 real poles at the same location.
+      As negative feedback is added, the poles split apart in an "X"
+      shape, and grow from there.  With enough feedback, the pole
+      pair on the right side crosses the Y axis, and that's the
+      oscillation point.  Positive feedback splits the poles into a
+      "cross" shape.
+    </li>
+    <li>
+      Lots of poles at the same location spreads out like a ferris
+      wheel.  Positive and negative feedback provide two different
+      rotations.
+    </li>
+    <li>
+      The second feedback slider is addresses the second term, the
+      "s" term, of the polynomial.  You see this bahavior on Sallen
+      Key filters.  So, starting with a double pole, adding positive
+      feedback pops the poles off the real axis.  But this time they
+      go off in a semi-circle.  This is effectively a 2 pole filter
+      with constant frequency and adjusting the Q.
+    </li>
+    <li>
+      You can use both types of feedback together and get this
+      delightfully crazy movement of poles, where a pole on the left
+      travels to the right, bumps into the right pole, they split,
+      and the rest of the poles move over.
+    </li>
+  </ul>
+  <p>
+    How it works: Each mouse click adds to a list of real roots.
+    Create a polynomial from those roots.  The polynomial gets tweaked
+    with the feedback factors.  Then find the roots of the tweaked
+    polynomial and present them on the plane.  Plot a frequency
+    response curve if the roots are all on the left hand plane.
+  </p>
+  <p>
+    The polynomial roots are found with 
+    <a href="https://github.com/scijs/durand-kerner"> 
+      this Javascript implementation</a> of the
+    <a href="https://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method">
+      Durand–Kerner method</a>.
+  </p>
+  <p>
+    Have fun!  Tell me what you find.
+  </p>
+  </div>
+<address>
+  Copyright 2018, J. Donald Tillman<br />
+  Email: don -at- till.com<br />
+  Web page: <a href="http://www.till.com">http://www.till.com</a>
+</address>
+
   </body>
 </html>

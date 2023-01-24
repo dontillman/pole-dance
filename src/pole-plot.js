@@ -83,7 +83,7 @@ const PolePlot = forwardRef((props, ref) => {
                    ...rangeInc(miny, maxy)
                    .filter(y => y)
                    .flatMap(v => {
-                       const y = v * scale;
+                       const y = -v * scale;
                        return [<line x1={0} y1={y} x2={10} y2={y}
                                      stroke={axisColor}
                                      key={`yl${v}`} />,
@@ -152,6 +152,8 @@ const PolePlot = forwardRef((props, ref) => {
            </svg>;
 });
 
+
+// "pp" means "points per"
 const responsePlotParams = {octaves: 6,
                             dbMax: 20,
                             dbMin: -60,
@@ -171,20 +173,20 @@ const ResponsePlot = forwardRef((props, ref) => {
         setPoly}));
 
     const dby = db => (dbMax - db) * ppdb;
-
     const y0 = dby(dbMin);
+    const octMin = .5 * octaves;
+    const octx = o => o = (o - octMin) * ppo;
 
-    const octAxis = [<line x1={0} y1={y0}
-                           x2={ppo * octaves} y2={y0}
+    const octAxis = [<line x1={octx(octMin)} y1={y0}
+                           x2={octx(octaves - octMin)} y2={y0}
                            stroke={axisColor}
                            key={'oaxis'} />,
-                     ...rangeInc(0, octaves)
+                     ...rangeInc(octMin, octMin + octaves)
                      .map(oct => {
-                         const x = oct * ppo;
+                         const x = octx(oct);
                          const octString = oct => 
                                `${(oct) ? oct : 'Octaves'}`;
                          // center it
-                         oct = oct - octaves / 2;
                          return [<line x1={x} y1={y0} x2={x} y2={y0 + 8}
                                        stroke={axisColor}
                                        key={`ol${oct}`} />,

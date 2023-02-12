@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"></meta>
     <title>Root Locus Demo of Real Poles with Feedback</title>
     <meta
       name="description"
-      content="Root Locus Demo of Real Poles with Feedback"
-    />
+      content="Root Locus Demo of Real Poles with Feedback">
+    </meta>
 
-  <link href="../styles2.css" rel="stylesheet" />
+    <link href="../styles2.css" rel="stylesheet"></link>
+    <style>
+      .slider-label {
+          font-family: Helvetica, sans-serif;
+          color: #222266;
+      }
+    </style>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
   </head>
@@ -23,7 +29,7 @@
   <p class="right">
     Donald Tillman, Sept 18, 2018
   </p>
-  <hr />
+  <hr></hr>
 
   <p>
     A passive filter built with just resistors and capacitors will
@@ -39,9 +45,7 @@
     between a minuet and square dancing.
   </p>
 
-  <h3>
-    A Super Concise Introduction
-  </h3>
+  <h3>A Super Concise Introduction</h3>
 
   <p>
     The transfer function of a filter is described in the form of a
@@ -57,10 +61,10 @@
   </p>
   <p class="indent">
     \( H(s) \) 
-    is the filter transfer function<br />
-    \( s \) is the complex frequency \( \alpha + j\omega \) <br />
-    \( z \) is the set of numerator (zero) coefficients<br />
-    and \( p \) is the set of denomenator (pole) coefficients<br />
+    is the filter transfer function<br></br>
+    \( s \) is the complex frequency \( \alpha + j\omega \) <br></br>
+    \( z \) is the set of numerator (zero) coefficients<br></br>
+    and \( p \) is the set of denomenator (pole) coefficients<br></br>
   </p>
 
 
@@ -96,9 +100,7 @@
     in system theory.
   </p>
 
-  <h3>
-    Demo
-  </h3>
+  <h3>Interactive Demo</h3>
   
   <p>
     Here is a demonstration of that effect.  Click to place poles on
@@ -109,9 +111,7 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root" class="center"></div>
 
-    <h3 class="clearboth">
-      What's Happening?
-    </h3>
+    <h3 class="clearboth">What's Happening?</h3>
 
     <p>
     Placing the poles along the real axis creates the original
@@ -120,11 +120,12 @@
     different roots, and those are displayed here.
   </p>
   <p>
-    The primary &ldquo;Feedback s0&rdquo; slider controls the amount
-    and polarity of direct feedback altering the value of the 0th
-    coefficient of the polynomial.  The secondary &ldquo;Feedback
-    s1&rdquo; slider applies feedback as a derivative and affects the
-    1st coefficient of the root polynomial.
+    The primary <span class="slider-label">Feedback&nbsp;s0</span> slider
+    controls the amount and polarity of direct feedback altering the
+    value of the 0th coefficient of the polynomial.  The
+    secondary <span class="slider-label">Feedback&nbsp;s1</span> slider
+    applies feedback as a derivative and affects the 1st coefficient
+    of the root polynomial.
   </p>
   <p>
     Complex poles can only exist in conjugate pairs; mirror images
@@ -134,22 +135,20 @@
     real axis.  (&lsquo;Weirdly like sex or cell division in biology.)
   </p>
 
-  <h3>
-    Some Interesting Things To Note:
-  </h3>
+  <h3>Some Interesting Things To Note</h3>
 
   <ul>
     <li>
-      With a single pole, feedback will just move it along the X
-      axis.
+      With a single pole, <span class="slider-label">Feedback&nbsp;s0</span>
+      will just move it along the X axis.
     </li>
     <li>
-      Starting with two poles at the same location, applying
-      positive feedback will spread them apart on the real axis.
-      Applying negative feedback will release them from the real
-      axis as complex poles, vertically, in a line straight up and
-      down.  There are similar effects for two poles placed anywhere
-      on the real axis.
+      Starting with two poles at the same location, applying positive
+      feedback will spread them apart on the real axis.  Applying
+      negative feedback will release them from the real axis as
+      complex conjugates, vertically, in a line straight up and down.
+      There are similar effects for two poles placed anywhere on the
+      real axis.
     </li>
     <li>
       With three poles at the same location, applying negative
@@ -161,7 +160,7 @@
       For the case of three poles spread out, adding negative
       feedback will bring the rightmost two together first, and then
       they can leap off the real axis, straight lines angled toward
-      the Y-axis.  Positive feedback will be the left-right reverse
+      the Y axis.  Positive feedback will be the left-right reverse
       behavior.
     </li>
     <li>
@@ -173,17 +172,28 @@
       poles into a &ldquo;+&rdquo; shape, and is far less useful.
     </li>
     <li>
-      Lots of poles at the same location spreads out like a ferris
-      wheel.  Positive and negative feedback provide two different
-      rotations.
+      With lots of poles at the same location, adding feedback spreads
+      them out like a ferris wheel.  Positive and negative feedback
+      provide two different rotations.
     </li>
     <li>
-      The second feedback slider is addresses the second term, the
-      &ldquo;s&rdquo; term, of the polynomial.  You see this bahavior
-      on Sallen Key filters.  So, starting with a double pole, adding
-      positive feedback pops the poles off the real axis.  But this
-      time they go off in a semi-circle.  This is effectively a 2 pole
-      filter with constant frequency and adjusting the Q.
+      The second <span class="slider-label">Feedback&nbsp;s1</span>
+      slider addresses the second coefficient for the \(s^1\) term of
+      the polynomial.  You see this bahavior with Sallen-Key filters.
+      So, starting with a double pole, adding positive feedback pops
+      the poles off the real axis.  But this time they go off in a
+      semicircle.  This is effectively a 2-pole filter with constant
+      frequency and adjusting the Q.
+    </li>
+    <li>
+      To simulate a State Variable Filter place two poles at the
+      origin.  That's a SVF running open loop.  Then use
+      the <span class="slider-label">Feedback&nbsp;0</span> slider to
+      add negative \(s^0\) feedback to tune it.  Without damping it's
+      an oscillator.  So then use
+      the <span class="slider-label">Feedback&nbsp;1</span> slider to
+      add some negative \(s^1\) feedback to adjust the Q down from
+      infinity.
     </li>
     <li>
       You can use both types of feedback together and get this
@@ -192,12 +202,15 @@
       and the rest of the poles move over.
     </li>
   </ul>
+
+  <h3>How it Works</h3>
   <p>
-    How it works: Each mouse click adds to a list of real roots.
-    Create a polynomial from those roots.  The polynomial gets tweaked
-    with the feedback factors.  Then find the roots of the tweaked
-    polynomial and present them on the plane.  Plot a frequency
-    response curve if the roots are all on the left hand plane.
+    Each mouse click adds to a list of real roots.  Create a
+    polynomial from those roots.  The \(s^0\) and \(s^1\) coefficients
+    of the polynomial get tweaked with the feedback factors.  Then
+    find the roots of the tweaked polynomial and present them on the
+    plane.  Plot a frequency response curve if the roots are all on
+    the left hand plane.
   </p>
   <p>
     The polynomial roots are found with 
@@ -220,8 +233,8 @@
 
   </div>
 <address>
-  Copyright 2018, J. Donald Tillman<br />
-  Email: don -at- till.com<br />
+  Copyright 2018, J. Donald Tillman<br></br>
+  Email: don -at- till.com<br></br>
   Web page: <a href="http://www.till.com">http://www.till.com</a>
 </address>
 

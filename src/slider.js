@@ -114,6 +114,16 @@ const Slider = props => {
                 height={height}
                 viewBox={[0, 0, width, height]}
                 onMouseDown={handlePointerStart}>
+               <defs>
+                   <filter id="dropShadow"
+                           x="-50%" y="-50%"
+                           width="200%" height="200%">
+                       <feDropShadow dx="1" dy="2"
+                                     stdDeviation="2"
+                                     flood-opacity=".5"
+                                     flood-color="#333333"/>
+                   </filter>
+               </defs>
                <style>
                    {svgStyle}
                </style>
@@ -121,7 +131,8 @@ const Slider = props => {
                <SliderSlot x={xmin}
                            y={y - 1}
                            width={xmax - xmin} />
-               <SliderKnob x={xp - knobw/2}
+               <SliderKnob filter="url(#dropShadow)"
+                           x={xp - knobw/2}
                            y={y - knobh / 2}
                            width={knobw}
                            height={knobh}
@@ -148,6 +159,5 @@ const SliderKnob = styled.rect`
   ry: 1px;
   fill: #333333;
   stroke: #000000;
-  filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, .4));
 `;
 

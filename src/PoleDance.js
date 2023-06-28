@@ -12,8 +12,9 @@ function PoleDance() {
     const [ , clear] = useReducer(i => i + 1, 0);
     const polePlotRef = useRef();
     
+    // feedback is [s^0 feedback, s^1 feedback, feedback to both s^0 and s^N]
     const state = {realPoles: [],
-                   feedback: [0.0, 0.0],
+                   feedback: [0.0, 0.0, 0.0],
                    lastFeedback: 0,
                    cache: {}};
     
@@ -29,6 +30,9 @@ function PoleDance() {
         let roots = [];
         if (1 < poly.length) {
             poly[1] -= feedback[1];
+            // feedback to both ends
+            poly[0] -= feedback[2];
+            poly[poly.length - 1] -= feedback[2];
             roots = polyRoots(poly);
         }
         
@@ -74,6 +78,11 @@ function PoleDance() {
             <Slider label="Feedback s1:"
                     width={width}
                     onChange={v => setFeedback(1, v)} />
+            <Hide>
+            <Slider label="Feedback s0,sn:"
+                    width={width}
+                    onChange={v => setFeedback(2, v)} />
+            </Hide>
         </AppDiv>
     );
 }
@@ -94,7 +103,9 @@ const ButtonDiv = styled.div`
   align-items: start;
 `;
 
-
+const Hide = styled.div`
+  display: None;
+`;
 
 // Lysenko's root finder returns separate real and imaginary arrays.
 // Zip'm.

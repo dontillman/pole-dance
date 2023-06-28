@@ -174,26 +174,23 @@ const ResponsePlot = forwardRef((props, ref) => {
 
     const dby = db => (dbMax - db) * ppdb;
     const y0 = dby(dbMin);
-    const octMin = .5 * octaves;
+    const octMin = -octaves/2;
     const octx = o => o = (o - octMin) * ppo;
 
     const octAxis = [<line x1={octx(octMin)} y1={y0}
-                           x2={octx(octaves - octMin)} y2={y0}
+                           x2={octx(octMin + octaves)} y2={y0}
                            stroke={axisColor}
                            key={'oaxis'} />,
                      ...rangeInc(octMin, octMin + octaves)
                      .map(oct => {
                          const x = octx(oct);
-                         const octString = oct => 
-                               `${(oct) ? oct : 'Octaves'}`;
-                         // center it
                          return [<line x1={x} y1={y0} x2={x} y2={y0 + 8}
                                        stroke={axisColor}
                                        key={`ol${oct}`} />,
                                  <text x={x} y={y0 + 18}
                                        className="tick"
                                        key={`ot${oct}`} >
-                                     {octString(oct)}
+                                     {prettyOctave(oct)}
                                  </text>];
                      })];
     
@@ -222,7 +219,8 @@ const ResponsePlot = forwardRef((props, ref) => {
               const w = minw * Math.pow(2, x / ppo);
               poly.forEach((c, i) => sums[i % 4] += c * w ** i);
               const v = (sums[0] - sums[2]) ** 2 + (sums[1] - sums[3]) ** 2;
-              const yp = dby(-10 * Math.log10((Math.min(pvmax, v / poly[0] ** 2))));
+              // const yp = dby(-10 * Math.log10((Math.min(pvmax, v / poly[0] ** 2))));
+              const yp = dby(-10 * Math.log10((Math.min(pvmax, v))));
               return `${x},${yp.toFixed(1)}`;
           })
           .join(' ');
@@ -249,6 +247,15 @@ const ResponsePlot = forwardRef((props, ref) => {
            </g>;
 });
 
+const prettyOctave = oct => {
+    if (0 < oct) {
+        return `+${oct}`
+    } else if (oct < 0) {
+        return `${oct}`;
+    }
+    return 'Octaves';
+}
+        
 const prettyPoly = poly => {
     const s = i => (1 < i) ? `s^${i}`
           : (i) ? 's'
